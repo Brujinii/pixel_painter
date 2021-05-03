@@ -10,27 +10,50 @@ function makeRows(rows, cols) {
         container.appendChild(cell).className = "grid-item";
     };
 };
-makeRows(64, 64);
+makeRows(32, 32);
 
 // Drawing Code
-container.addEventListener('mouseleave', () => {
-    is_drawing = false
+
+let current_brush = "pencil"
+// Pencil
+const brushes = document.querySelectorAll('.brush')
+brushes.forEach((brush) => {
+    brush.addEventListener('click', () => {
+        brushes.forEach((brush) => {
+            brush.classList.remove("brush_active")
+        })
+        brush.classList.add("brush_active")
+        current_brush = brush.id
+    })
 })
+container.addEventListener('mouseleave', () => {
+    is_drawing = false;
+});
 
 const pixels = document.querySelectorAll(".grid-item");
 
+const bg_color = "white";
+
 pixels.forEach((pixel) => {
-    pixel.style.backgroundColor = "white"  // default background color
+    function draw() {
+        if (current_brush === "pencil") {
+            pixel.style.backgroundColor = color;
+        };
+        if (current_brush === "eraser") {
+            pixel.style.backgroundColor = bg_color
+        };
+    };
+    pixel.style.backgroundColor = bg_color  // default background color
     pixel.addEventListener('mousedown', () => {  // when mousedown, draw in square
         is_drawing = true
-        pixel.style.backgroundColor = color
+        draw()
     });
     pixel.addEventListener('mouseup', () => {   // stop drawing on mouseup
         is_drawing = false
     });
     pixel.addEventListener('mouseenter', () => {   // if is_drawing == true when mouse enters, draw
         if (is_drawing) {
-            pixel.style.backgroundColor = color
+            draw()
         };
     });
 });
@@ -41,7 +64,7 @@ clear.addEventListener('click', () => {
     let clear_doc = confirm("Would you really like to clear?")  // make sure that the user would like to clear
     if (clear_doc) {
         pixels.forEach((pixel) => {
-            pixel.style.backgroundColor = "white"
+            pixel.style.backgroundColor = bg_color
         })
     }
 })
@@ -70,8 +93,18 @@ grid_lines.addEventListener('click', () => {
         pixels.forEach((pixel) => {
             pixel.style.padding = '0px'
         })
-        container.style.columnGap = "2px"
-        container.style.rowGap = "2px"
+        container.style.columnGap = "1px"
+        container.style.rowGap = "1px"
         grid_lines_drawn = true    
     }
+})
+
+// Brush Size
+const brush_slider = document.querySelector(".slider");
+const brush_text_value = document.querySelector(".brush_size");
+let brush_size = brush_slider.value;
+
+brush_slider.addEventListener("input", () => {
+    brush_size = brush_slider.value;
+    brush_text_value.textContent = brush_size
 })

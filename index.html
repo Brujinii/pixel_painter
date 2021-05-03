@@ -10,11 +10,34 @@
 <body>
     <main>
         <div id="menu">
+            <h1>
+                Tools
+            </h1>
             <label for="toggle-grid">Grid lines:</label>
             <input type="checkbox" id="toggle-grid" name="toggle-grid" checked>
             <br>
-            <label for="colorpicker">Color:</label>
-            <input type="color" value="#000000" id="colorpicker">
+            <div id="colorcontainer">
+                <label for="colorpicker">Color:</label>
+                <input type="color" value="#000000" id="colorpicker">
+            </div>
+            <div>
+                <label for="myrange">Brush Size: <span class="brush_size">5</span></label>
+                <input type="range" min='1' max="10" value="1" class="slider" id="myrange">
+            </div>
+            <div id="brushes">
+                <h1>
+                    Brushes
+                </h1>
+                <div class="brush brush_active" id="pencil">
+                    Pencil
+                </div>
+                <div class="brush" id="eraser">
+                    Eraser
+                </div>
+                <div class="brush" id="fill">
+                    Fill
+                </div>
+            </div>
             <button id="clear">
                 Clear
             </button>

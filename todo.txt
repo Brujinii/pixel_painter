@@ -1,0 +1,7 @@
+-----Todo----
+1. Add a fill tool
+
+2. Add a brush size slider
+    a. Brush size is just affecting a group of pixels at once
+    b. Select a group of pixels based on the brush size 
+    c. Create an array of all possible pixels, select from there based on the brush size 
